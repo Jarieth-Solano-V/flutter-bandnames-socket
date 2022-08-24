@@ -15,10 +15,10 @@ class Band {
 
   /*Creamos un factory constructor, este factory recibe ciertos tipos de argumentos y
   regresa una nueva instancia de la clase, podemos utilizar "=>" para simular un return*/
+  //Recibe un mapa emitido por el back-end String = 'nombre-funcion' y dinamic lo que se trae
   factory Band.fromMap(Map<String, dynamic> obj) => Band(
-        //Definimos la propiedades
-        id: obj['id'],
-        name: obj['name'],
-        votes: obj['votes'],
-      );
+      //Definimos las propiedades, tambien le realizamos una validacion
+      id: obj.containsKey('id') ? obj['id'] : 'no-id',
+      name: obj.containsKey('name') ? obj['name'] : 'no-name',
+      votes: obj.containsKey('votes') ? obj['votes'] : 'no-votes');
 }

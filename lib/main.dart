@@ -1,5 +1,8 @@
+import 'package:band_names/screens/status.dart';
+import 'package:band_names/services/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:band_names/screens/home.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,13 +10,26 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
+    return MultiProvider(
+      //Inicializar cuantas intancias quiero de mis modelos
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => SocketService(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Material App',
 
-      //Enrutamos la primera pagina a mostrar, desde nuestro archivo "main"
-      initialRoute: 'home',
-      routes: {'home': (_) => HomeScreen()},
+        //Llamamos a la ruta inicial mediante su instacia
+        initialRoute: 'home',
+
+        //Establecemos las rutas con una instancia
+        routes: {
+          'home': (_) => HomeScreen(),
+          'status': (_) => StatusScreen(),
+        },
+      ),
     );
   }
 }
